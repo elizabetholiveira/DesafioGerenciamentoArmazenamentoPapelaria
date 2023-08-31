@@ -79,16 +79,20 @@ public class StationeryService {
     }
 
     //Listar todos os itens contendo um nome
-    public Optional<StationeryDTO> mostrarItemPorNome(String nome){
-        Optional<StationeryModel> stationeryModel = stationeryRepository.findByNome(nome);
+    //Case insensitive
+    public List<StationeryDTO> mostrarItemPorNome(String nome){
+        List<StationeryModel> stationeryModels = stationeryRepository.findByNome(nome);
 
-        if (!stationeryModel.isPresent()){
+        if (stationeryModels.isEmpty()){
             throw new RuntimeException("Nada contendo " + nome + " foi encontrado");
         }
-        StationeryDTO stationeryDTO = new StationeryDTO();
-        StationeryModel encontrado = stationeryModel.get();
-        BeanUtils.copyProperties(encontrado, stationeryDTO);
-        return Optional.of(stationeryDTO);
+        List<StationeryDTO> stationeryDTOS = new ArrayList<>();
+        for (StationeryModel stationeryModel : stationeryModels){
+            StationeryDTO stationeryDTO = new StationeryDTO();
+            BeanUtils.copyProperties(stationeryModel, stationeryDTO);
+            stationeryDTOS.add(stationeryDTO);
+        }
+        return stationeryDTOS;
     }
 
     //Excluir um item

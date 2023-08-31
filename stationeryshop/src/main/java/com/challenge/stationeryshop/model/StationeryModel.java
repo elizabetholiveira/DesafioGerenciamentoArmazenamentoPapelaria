@@ -28,7 +28,7 @@ public class StationeryModel {
 
     //Nome não pode estar em branco
     @Column(nullable = false)
-    @NotBlank //Testar no postman pra ver se faz diferença
+    @NotBlank
     private String name;
 
     //Descrição é opcional
@@ -36,6 +36,7 @@ public class StationeryModel {
 
     //Preço tem que ter 2 casas decimais
     @Column(nullable = false)
+    @NotBlank
     @Digits(integer = 9, fraction = 2)
     private BigDecimal price;
 

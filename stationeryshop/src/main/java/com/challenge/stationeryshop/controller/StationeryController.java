@@ -38,7 +38,7 @@ public class StationeryController {
 
     //Listar todos os itens contendo um nome
     @GetMapping(path = "/name/{nome}")
-    public ResponseEntity<Optional<StationeryDTO>> mostrarItemPorNome(@PathVariable String nome){
+    public ResponseEntity<List<StationeryDTO>> mostrarItemPorNome(@PathVariable String nome){
         return ResponseEntity.ok(stationeryService.mostrarItemPorNome(nome));
     }
 
