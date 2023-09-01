@@ -27,8 +27,8 @@ public class StationeryModel {
 
     //Nome não pode estar em branco
     //@Column(nullable = false)
-    @NotNull(message = "name-1")
-    @NotBlank(message = "name-2") //Só esse já faz o trabalho de não deixar branco nem nulo
+    //@NotNull
+    @NotBlank(message = "name-1") //Só esse já faz o trabalho de não deixar branco nem nulo
     private String name;
 
     //Descrição é opcional
