@@ -28,7 +28,7 @@ public class StationeryModel {
     //Nome não pode estar em branco
     //@Column(nullable = false)
     //@NotNull
-    @NotBlank(message = "name-1") //Só esse já faz o trabalho de não deixar branco nem nulo
+    @NotBlank //Só esse já faz o trabalho de não deixar branco nem nulo
     private String name;
 
     //Descrição é opcional
@@ -36,11 +36,11 @@ public class StationeryModel {
 
     //Preço tem que ter 2 casas decimais
     //@Column(nullable = false)
-    @NotNull(message = "price-1")
-    @Digits(integer = 9, fraction = 2, message = "price-2")
+    @NotNull
+    @Digits(integer = 9, fraction = 2)
     private BigDecimal price;
 
     //Quantidade é contada em unidades, então só pode ser inteiro
-    @Min(value = 0, message = "quantity-1")
+    @Min(value = 0)
     private Long quantity;
 }

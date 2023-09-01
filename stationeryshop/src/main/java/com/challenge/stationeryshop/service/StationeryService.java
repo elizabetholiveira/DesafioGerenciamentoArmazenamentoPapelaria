@@ -3,8 +3,10 @@ package com.challenge.stationeryshop.service;
 import com.challenge.stationeryshop.dto.StationeryDTO;
 import com.challenge.stationeryshop.model.StationeryModel;
 import com.challenge.stationeryshop.repository.StationeryRepository;
+import jdk.jshell.Snippet;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +33,7 @@ public class StationeryService {
     //Atualizar um item
     public StationeryDTO atualizar(Long id, StationeryDTO stationeryDTO){
         Optional<StationeryModel> stationeryOptional = stationeryRepository.findById(id);
-        if (!stationeryOptional.isPresent()){
-            throw new RuntimeException("ID " + id + " não encontrado");
-        }
+
         StationeryModel encontrado = stationeryOptional.get();
         if(stationeryDTO.getName() != null){
             encontrado.setName(stationeryDTO.getName());
@@ -69,13 +69,10 @@ public class StationeryService {
     public Optional<StationeryDTO> mostrarItemPorID(Long id){
         Optional<StationeryModel> stationeryModel = stationeryRepository.findById(id);
 
-        if (!stationeryModel.isPresent()){
-            throw new RuntimeException("ID " + id + " não encontrado");
-        }
-        StationeryDTO stationeryDTO = new StationeryDTO();
-        StationeryModel encontrado = stationeryModel.get();
-        BeanUtils.copyProperties(encontrado, stationeryDTO);
-        return Optional.of(stationeryDTO);
+            StationeryDTO stationeryDTO = new StationeryDTO();
+            StationeryModel encontrado = stationeryModel.get();
+            BeanUtils.copyProperties(encontrado, stationeryDTO);
+            return Optional.of(stationeryDTO);
     }
 
     //Listar todos os itens contendo um nome
@@ -83,9 +80,6 @@ public class StationeryService {
     public List<StationeryDTO> mostrarItemPorNome(String nome){
         List<StationeryModel> stationeryModels = stationeryRepository.findByNome(nome);
 
-        if (stationeryModels.isEmpty()){
-            throw new RuntimeException("Nada contendo " + nome + " foi encontrado");
-        }
         List<StationeryDTO> stationeryDTOS = new ArrayList<>();
         for (StationeryModel stationeryModel : stationeryModels){
             StationeryDTO stationeryDTO = new StationeryDTO();
@@ -97,10 +91,6 @@ public class StationeryService {
 
     //Excluir um item
     public void excluir(Long id){
-        Optional<StationeryModel> stationeryModel = stationeryRepository.findById(id);
-        if(!stationeryModel.isPresent()){
-            throw new RuntimeException("ID " + id + " não encontrado");
-        }
         stationeryRepository.deleteById(id);
     }
 
