@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,7 +59,7 @@ public class StationeryController {
     @PostMapping
     @Operation(summary = "Adiciona um item no armazenamento", method = "POST")
     @ApiResponses(value = @ApiResponse(responseCode = "201", description = "Criação de item feita com sucesso"))
-    public ResponseEntity<StationeryDTO> adicionar(@RequestBody StationeryDTO stationeryDTO){
+    public ResponseEntity<StationeryDTO> adicionar(@Valid @RequestBody StationeryDTO stationeryDTO){
         StationeryDTO novoItem = stationeryService.adicionar(stationeryDTO);
         return new ResponseEntity<>(novoItem, HttpStatus.CREATED);
     }
@@ -68,7 +69,7 @@ public class StationeryController {
     @PutMapping(path = "/{id}")
     @Operation(summary = "Altera os dados de um item", method = "PUT")
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Atualização feita com sucesso"))
-    public ResponseEntity<StationeryDTO> atualizar(@PathVariable Long id, @RequestBody StationeryDTO stationeryDTO){
+    public ResponseEntity<StationeryDTO> atualizar(@PathVariable Long id, @Valid @RequestBody StationeryDTO stationeryDTO){
         StationeryDTO novoItem = stationeryService.atualizar(id, stationeryDTO);
         return ResponseEntity.ok(novoItem);
     }
